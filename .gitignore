@@ -1,0 +1,3 @@
+# Node.js (para ignorar node_modules en todos los microservicios)
+node_modules/
+.env

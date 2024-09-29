@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  api-gateway:
+    build: ./gateway
+    ports:
+      - "3000:3000"
+    depends_on:
+      - users-service
+      - products-service
+      - orders-service
+
+  users-service:
+    build: ./users-service
+    ports:
+      - "4000:4000"
+    environment:
+      - MONGODB_URI="mongodb+srv://admin:pies3,14@cluster0.mongodb.net/users?retryWrites=true&w=majority"
+
+  products-service:
+    build: ./products-service
+    ports:
+      - "4001:4001"
+    environment:
+      - MONGODB_URI="mongodb+srv://admin:pies3,14@cluster0.mongodb.net/products?retryWrites=true&w=majority"
+
+  orders-service:
+    build: ./orders-service
+    ports:
+      - "4002:4002"
+    environment:
+      - MONGODB_URI="mongodb+srv://admin:pies3,14@cluster0.mongodb.net/orders?retryWrites=true&w=majority"
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
