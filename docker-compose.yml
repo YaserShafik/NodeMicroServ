@@ -15,21 +15,21 @@ services:
     ports:
       - "4000:4000"
     environment:
-      - MONGODB_URI="mongodb+srv://admin:pies3,14@cluster0.mongodb.net/users?retryWrites=true&w=majority"
+      - MONGODB_URI="mongodb+srv://user:password@cluster0.mongodb.net/users?retryWrites=true&w=majority"
 
   products-service:
     build: ./products-service
     ports:
       - "4001:4001"
     environment:
-      - MONGODB_URI="mongodb+srv://admin:pies3,14@cluster0.mongodb.net/products?retryWrites=true&w=majority"
+      - MONGODB_URI="mongodb+srv://user:password@cluster0.mongodb.net/products?retryWrites=true&w=majority"
 
   orders-service:
     build: ./orders-service
     ports:
       - "4002:4002"
     environment:
-      - MONGODB_URI="mongodb+srv://admin:pies3,14@cluster0.mongodb.net/orders?retryWrites=true&w=majority"
+      - MONGODB_URI="mongodb+srv://user:password@cluster0.mongodb.net/orders?retryWrites=true&w=majority"
 
   rabbitmq:
     image: "rabbitmq:3-management"
