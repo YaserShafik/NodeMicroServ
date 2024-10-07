@@ -1,20 +1,24 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const {connectRabittMQ_Products, getMessageFromQueue} = require('./orders_queue')
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 
 const PORT = process.env.PORT || 4001;
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/products';
 
 // Conectar a MongoDB Atlas
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
   .then(() => console.log('Conectado a MongoDB Atlas (Products)'))
   .catch(err => console.error('Error al conectar a MongoDB:', err));
 
-connectRabbitMQ_Products(() => {
+connectRabittMQ_Products(() => {
   getMessageFromQueue();
 });
 

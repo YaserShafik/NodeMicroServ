@@ -8,10 +8,13 @@ const app = express();
 app.use(express.json());
 
 const PORT = process.env.PORT || 4002;
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/orders';
 
 // Conectar a MongoDB Atlas
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
   .then(() => console.log('Conectado a MongoDB Atlas (Orders)'))
   .catch(err => console.error('Error al conectar a MongoDB:', err));
 

@@ -8,6 +8,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
+RUN npm install --save-dev nodemon
+
 # Copiar el resto del código fuente
 COPY . .
 
@@ -15,4 +17,4 @@ COPY . .
 EXPOSE 3000
 
 # Comando para ejecutar el servidor de gateway
-CMD ["node", "server.js"]
+CMD ["npx","nodemon", "server.js"]

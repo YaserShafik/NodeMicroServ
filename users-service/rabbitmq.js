@@ -2,6 +2,7 @@ const amqp = require('amqplib/callback_api');
 
 let channel;
 
+// Función para inicializar la conexión con RabbitMQ
 const connectRabbitMQ = () => {
   amqp.connect('amqp://rabbitmq', (error0, connection) => {
     if (error0) {
@@ -18,18 +19,19 @@ const connectRabbitMQ = () => {
       }
 
       channel = ch;
-      const queue = 'orders_queue';
+      const queue = 'users_queue'; // Cola específica para users-service
 
       // Asegurarse de que la cola existe
       channel.assertQueue(queue, { durable: false });
-      console.log("Conectado a RabbitMQ y preparado para recibir mensajes en 'orders_queue'");
+      console.log(`Conectado a RabbitMQ y preparado para recibir mensajes en '${queue}'`);
     });
   });
 };
 
+// Función para enviar mensajes a la cola
 const sendMessageToQueue = (message) => {
   if (channel) {
-    channel.sendToQueue('orders_queue', Buffer.from(message));
+    channel.sendToQueue('users_queue', Buffer.from(message));
     console.log(`Mensaje enviado a la cola: ${message}`);
   } else {
     console.error('Error: Canal no está disponible.');

@@ -14,25 +14,68 @@ services:
     build: ./users-service
     ports:
       - "4000:4000"
+    links:
+      - mongodb
     environment:
-      - MONGODB_URI="mongodb+srv://admin:pies3,14@cluster0.mongodb.net/users?retryWrites=true&w=majority"
+      - MONGODB_URI=mongodb://mongodb:27017/users
+    depends_on:
+      - rabbitmq
+      - mongodb
 
   products-service:
     build: ./products-service
     ports:
       - "4001:4001"
+    links:
+      - mongodb
     environment:
-      - MONGODB_URI="mongodb+srv://admin:pies3,14@cluster0.mongodb.net/products?retryWrites=true&w=majority"
+      - MONGODB_URI=mongodb://mongodb:27017/products
+    depends_on:
+      - rabbitmq
+      - mongodb
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://rabbitmq:15672"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   orders-service:
     build: ./orders-service
     ports:
       - "4002:4002"
+    links:
+      - mongodb
     environment:
-      - MONGODB_URI="mongodb+srv://admin:pies3,14@cluster0.mongodb.net/orders?retryWrites=true&w=majority"
+      - MONGODB_URI=mongodb://mongodb:27017/orders
+    depends_on:
+      - rabbitmq
+      - mongodb
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://rabbitmq:15672"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   rabbitmq:
     image: "rabbitmq:3-management"
     ports:
       - "5672:5672"
       - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=adminpassword
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

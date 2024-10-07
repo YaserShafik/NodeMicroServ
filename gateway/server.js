@@ -13,9 +13,15 @@ app.use('/users', (req, res) => {
     method: req.method,
     data: req.body
   }).then(response => {
-    res.send(response.data);
+    res.send({
+      message: "Mensagito lokoloko",
+      data: response.data
+    })
   }).catch(error => {
-    res.status(500).send(error.message);
+    res.status(500).send({
+      message: "Parcerito hubo un error",
+      error: error.message
+    });
   });
 });
 
