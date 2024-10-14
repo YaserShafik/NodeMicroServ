@@ -17,7 +17,7 @@ services:
     links:
       - mongodb
     environment:
-      - MONGODB_URI=mongodb://mongodb:27017/users
+      - MONGODB_URI=mongodb+srv://admin:pies314@cluster0.2ysbtpk.mongodb.net/NMS_Users?
     depends_on:
       - rabbitmq
       - mongodb
@@ -71,11 +71,11 @@ services:
     image: mongo
     ports:
       - "27017:27017"
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=adminpassword
-    volumes:
-      - mongo-data:/data/db
+    # environment:
+    #   - MONGO_INITDB_ROOT_USERNAME=admin
+    #   - MONGO_INITDB_ROOT_PASSWORD=adminpassword
+    # volumes:
+    #   - mongo-data:/data/db
 
 volumes:
   mongo-data:
