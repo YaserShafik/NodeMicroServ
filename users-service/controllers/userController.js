@@ -14,6 +14,18 @@ exports.createUser = async (req, res) => {
   }
 };
 
+// Login de usuario
+exports.loginUser = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findByCredentials(email, password);
+    const token = await user.generateAuthToken();
+    res.status(200).send({ user, token });
+  } catch (err) {
+    res.status(400).send(err);
+  }
+};
+
 // Obtener todos los usuarios
 exports.getAllUsers = async (req, res) => {
   try {
