@@ -2,7 +2,7 @@ const amqp = require('amqplib/callback_api');
 
 let channel;
 
-
+// Changes local-changes
 // Función para inicializar la conexión con RabbitMQ
 const connectRabbitMQ = () => {
   amqp.connect('amqp://rabbitmq', (error0, connection) => {
