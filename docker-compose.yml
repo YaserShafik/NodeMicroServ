@@ -17,7 +17,10 @@ services:
     links:
       - mongodb
     environment:
-      - MONGODB_URI="mongodb+srv://user:password@cluster0.mongodb.net/users?retryWrites=true&w=majority"
+      - MONGODB_URI=mongodb+srv://yaser:pies3,14@cluster0.2ysbtpk.mongodb.net/NMS-users?retryWrites=true&w=majority&appName=Cluster0
+    depends_on:
+      - rabbitmq
+      - mongodb
 
   products-service:
     build: ./products-service
@@ -26,7 +29,15 @@ services:
     links:
       - mongodb
     environment:
-      - MONGODB_URI="mongodb+srv://user:password@cluster0.mongodb.net/products?retryWrites=true&w=majority"
+      - MONGODB_URI=mongodb+srv://yaser:pies3,14@cluster0.2ysbtpk.mongodb.net/NMS-products?retryWrites=true&w=majority&appName=Cluster0
+    depends_on:
+      - rabbitmq
+      - mongodb
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://rabbitmq:15672"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   orders-service:
     build: ./orders-service
@@ -35,7 +46,15 @@ services:
     links:
       - mongodb
     environment:
-      - MONGODB_URI="mongodb+srv://user:password@cluster0.mongodb.net/orders?retryWrites=true&w=majority"
+      - MONGODB_URI=mongodb+srv://yaser:pies3,14@cluster0.2ysbtpk.mongodb.net/NMS-services?retryWrites=true&w=majority&appName=Cluster0
+    depends_on:
+      - rabbitmq
+      - mongodb
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://rabbitmq:15672"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   rabbitmq:
     image: "rabbitmq:3-management"
