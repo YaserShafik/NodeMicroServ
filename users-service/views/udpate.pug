@@ -1,0 +1,27 @@
+// views/update.pug
+extends layout
+
+block content
+  .section
+    .container
+      h2 Update User
+      form(action='/users/update' method='POST')
+        .field
+          label.label(for='id') User ID
+          .control
+            input.input(type='text' name='id' required)
+        .field
+          label.label(for='name') Name
+          .control
+            input.input(type='text' name='name')
+        .field
+          label.label(for='email') Email
+          .control
+            input.input(type='email' name='email')
+        .field
+          label.label(for='password') Password
+          .control
+            input.input(type='password' name='password')
+        .field
+          .control
+            button.button(type='submit') Update

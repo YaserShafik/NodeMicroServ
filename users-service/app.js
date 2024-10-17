@@ -14,7 +14,7 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/users'
 
 // Configurar el motor de vistas
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 // Conectar a MongoDB Atlas
 mongoose.connect(MONGODB_URI, {

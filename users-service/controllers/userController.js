@@ -18,7 +18,7 @@ exports.createUser = async (req, res) => {
 
     // JWT token
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.status(201).send(user);
+    res.status(201).send({ auth:true , token });
   } catch (err) {
     res.status(400).send(err);
   }
