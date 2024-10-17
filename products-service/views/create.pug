@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  .section
+    .container
+      h2 Create Product
+      form(action='/products/create' method='POST')
+        .field
+          label.label(for='name') Name
+          .control
+            input.input(type='text' name='name' required)
+        .field
+          label.label(for='price') Price
+          .control
+            input.input(type='number' name='price' required)
+        .field
+          label.label(for='description') Description
+          .control
+            textarea.textarea(name='description' required)
+        .field
+          .control
+            button.button(type='submit') Create

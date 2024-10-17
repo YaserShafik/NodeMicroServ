@@ -1,0 +1,31 @@
+// views/update.pug
+extends layout
+
+block content
+  .section
+    .container
+      h2 Update Order
+      form(action='/orders/update' method='POST')
+        .field
+          label.label(for='id') Order ID
+          .control
+            input.input(type='text' name='id' required)
+        .field
+          label.label(for='userId') User ID
+          .control
+            input.input(type='text' name='userId')
+        .field
+          label.label(for='productId') Product ID
+          .control
+            input.input(type='text' name='productId')
+        .field
+          label.label(for='quantity') Quantity
+          .control
+            input.input(type='number' name='quantity')
+        .field
+          label.label(for='totalPrice') Total Price
+          .control
+            input.input(type='number' name='totalPrice')
+        .field
+          .control
+            button.button(type='submit') Update

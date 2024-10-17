@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  .section
+    .container
+      h2 Delete Product
+      form(action='/products/delete' method='POST')
+        .field
+          label.label(for='id') Product ID
+          .control
+            input.input(type='text' name='id' required)
+        .field
+          .control
+            button.button(type='submit') Delete

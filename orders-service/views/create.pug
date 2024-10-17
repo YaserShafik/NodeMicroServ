@@ -1,0 +1,27 @@
+// views/create.pug
+extends layout
+
+block content
+  .section
+    .container
+      h2 Create Order
+      form(action='/orders/create' method='POST')
+        .field
+          label.label(for='userId') User ID
+          .control
+            input.input(type='text' name='userId' required)
+        .field
+          label.label(for='productId') Product ID
+          .control
+            input.input(type='text' name='productId' required)
+        .field
+          label.label(for='quantity') Quantity
+          .control
+            input.input(type='number' name='quantity' required)
+        .field
+          label.label(for='totalPrice') Total Price
+          .control
+            input.input(type='number' name='totalPrice' required)
+        .field
+          .control
+            button.button(type='submit') Create
