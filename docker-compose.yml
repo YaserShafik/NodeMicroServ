@@ -17,7 +17,7 @@ services:
     links:
       - mongodb
     environment:
-      - MONGODB_URI=mongodb://mongodb:27017/users
+      - MONGODB_URI=mongodb+srv://yaser:pies3,14@cluster0.2ysbtpk.mongodb.net/NMS-users?retryWrites=true&w=majority&appName=Cluster0
     depends_on:
       - rabbitmq
       - mongodb
@@ -29,7 +29,7 @@ services:
     links:
       - mongodb
     environment:
-      - MONGODB_URI=mongodb://mongodb:27017/products
+      - MONGODB_URI=mongodb+srv://yaser:pies3,14@cluster0.2ysbtpk.mongodb.net/NMS-products?retryWrites=true&w=majority&appName=Cluster0
     depends_on:
       - rabbitmq
       - mongodb
@@ -46,7 +46,7 @@ services:
     links:
       - mongodb
     environment:
-      - MONGODB_URI=mongodb://mongodb:27017/orders
+      - MONGODB_URI=mongodb+srv://yaser:pies3,14@cluster0.2ysbtpk.mongodb.net/NMS-services?retryWrites=true&w=majority&appName=Cluster0
     depends_on:
       - rabbitmq
       - mongodb
@@ -71,11 +71,3 @@ services:
     image: mongo
     ports:
       - "27017:27017"
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=adminpassword
-    volumes:
-      - mongo-data:/data/db
-
-volumes:
-  mongo-data:

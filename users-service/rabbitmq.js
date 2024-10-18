@@ -2,6 +2,7 @@ const amqp = require('amqplib/callback_api');
 
 let channel;
 
+// Changes local-changes
 // Función para inicializar la conexión con RabbitMQ
 const connectRabbitMQ = () => {
   amqp.connect('amqp://rabbitmq', (error0, connection) => {
@@ -22,8 +23,25 @@ const connectRabbitMQ = () => {
       const queue = 'users_queue'; // Cola específica para users-service
 
       // Asegurarse de que la cola existe
-      channel.assertQueue(queue, { durable: false });
-      console.log(`Conectado a RabbitMQ y preparado para recibir mensajes en '${queue}'`);
+      channel.assertQueue(queue, { durable: false }, (error2, ok) => {
+        if (error2) {
+          console.error(`Error al asegurar la cola: ${error2.message}`);
+          setTimeout(connectRabbitMQ, 5000); // Reintentar después de 5 segundos
+          return;
+        }
+        console.log(`Conectado a RabbitMQ y preparado para recibir mensajes en '${queue}'`);
+      });
+
+      // Manejar el cierre de la conexión
+      connection.on('close', () => {
+        console.error('Conexión a RabbitMQ cerrada, intentando reconectar...');
+        setTimeout(connectRabbitMQ, 5000); // Reintentar después de 5 segundos
+      });
+
+      // Manejar errores de la conexión
+      connection.on('error', (err) => {
+        console.error(`Error en la conexión a RabbitMQ: ${err.message}`);
+      });
     });
   });
 };

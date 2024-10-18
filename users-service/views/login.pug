@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  .section
+    .container
+      h2 Login
+      form(action='/users/login' method='POST')
+        .field
+          label.label(for='email') Email
+          .control
+            input.input(type='email' name='email' required)
+        .field
+          label.label(for='password') Password
+          .control
+            input.input(type='password' name='password' required)
+        .field
+          .control
+            button.button(type='submit') Login

@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  .section
+    .container
+      h2 Update Product
+      form(action='/products/update' method='POST')
+        .field
+          label.label(for='id') Product ID
+          .control
+            input.input(type='text' name='id' required)
+        .field
+          label.label(for='name') Name
+          .control
+            input.input(type='text' name='name')
+        .field
+          label.label(for='price') Price
+          .control
+            input.input(type='number' name='price')
+        .field
+          label.label(for='description') Description
+          .control
+            textarea.textarea(name='description')
+        .field
+          .control
+            button.button(type='submit') Update

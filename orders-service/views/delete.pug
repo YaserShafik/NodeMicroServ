@@ -1,0 +1,15 @@
+// views/delete.pug
+extends layout
+
+block content
+  .section
+    .container
+      h2 Delete Order
+      form(action='/orders/delete' method='POST')
+        .field
+          label.label(for='id') Order ID
+          .control
+            input.input(type='text' name='id' required)
+        .field
+          .control
+            button.button(type='submit') Delete
