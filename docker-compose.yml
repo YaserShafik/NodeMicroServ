@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   api-gateway:
     build: ./gateway
@@ -22,6 +20,16 @@ services:
       - rabbitmq
       - mongodb
 
+  chatgpt-service:
+    build: ./chatgpt-service
+    ports:
+      -"4003:4003"
+    links:
+      - chatgpt
+    depends_on:
+      - rabbitmq
+      - mongodb
+      
   products-service:
     build: ./products-service
     ports:

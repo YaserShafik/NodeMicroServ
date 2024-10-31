@@ -1,0 +1,14 @@
+const express = require('express')
+const consultController = require('../controllers/consultController')
+const router = express.Router()
+
+router.get('/consult', (req, res)=>{
+    res.render('/consultForm')
+})
+
+
+
+router.post('/consult', consultController.createConsult)
+
+
+module.exports = router;

@@ -49,6 +49,18 @@ app.use('/orders', (req, res) => {
   });
 });
 
+app.use('/consults', (req, res) =>{
+  axios({
+    url: process.env.CONSULTS_SERVICE_URL + req.url,
+    method: req.method,
+    data: req.body
+  }).then(response => {
+    res.send(response.data);
+  }).catch(error => {
+    res.status(500).send(error.message);
+  })
+})
+
 app.listen(PORT, () => {
   console.log(`API Gateway running on port ${PORT}`);
 });
